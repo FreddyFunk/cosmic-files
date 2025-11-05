@@ -577,15 +577,14 @@ pub fn parse_desktop_file(path: &Path) -> (Option<String>, Option<String>) {
             return (None, None);
         }
     };
+
+    let Some(section) = entry.section("Desktop Entry") else {
+        return (None, None);
+    };
+
     (
-        entry
-            .section("Desktop Entry")
-            .attr("Name")
-            .map(str::to_string),
-        entry
-            .section("Desktop Entry")
-            .attr("Icon")
-            .map(str::to_string),
+        section.attr("Name").first().cloned(),
+        section.attr("Icon").first().cloned(),
     )
 }
 
