@@ -1773,6 +1773,7 @@ impl Application for App {
                                                             &app.tab,
                                                             &app.key_binds,
                                                             &app.modifiers,
+                                                            false, // Paste not used in dialogs
                                                         )
                                                         .map(Message::TabMessage)
                                                         .map(cosmic::Action::App),
@@ -1957,7 +1958,7 @@ impl Application for App {
 
         col = col.push(
             self.tab
-                .view(&self.key_binds, &self.modifiers)
+                .view(&self.key_binds, &self.modifiers, false)
                 .map(Message::TabMessage),
         );
 
